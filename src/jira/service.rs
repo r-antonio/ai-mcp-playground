@@ -20,4 +20,8 @@ impl JiraService {
     pub async fn advance_status(&self, issue_id: &str, target_status: &str) -> Result<()> {
         self.client.advance_to_status(issue_id, target_status).await
     }
-} 
+
+    pub async fn add_version(&self, issue_id: &str, version_id: &str) -> Result<()> {
+        self.client.add_version_to_issue(issue_id, version_id).await
+    }
+}

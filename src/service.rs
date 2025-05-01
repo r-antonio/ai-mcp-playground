@@ -75,6 +75,26 @@ impl Service {
             }).to_string()
         )]))
     }
+
+    #[tool(description = "Add a version to a Jira issue")]
+    async fn add_issue_version(
+        &self,
+        #[tool(param)]
+        #[schemars(description = "The ID of the issue to update")]
+        issue_id: String,
+        #[tool(param)]
+        #[schemars(description = "The ID of the version to add to the issue")]
+        version_id: String,
+    ) -> Result<CallToolResult, McpError> {
+        self.jira.add_version(&issue_id, &version_id).await
+            .map_err(|e| McpError::internal_error("Failed to add version to issue", Some(json!({ "error": e.to_string() }))))?;
+        
+        Ok(CallToolResult::success(vec![Content::text(
+            json!({
+                "message": format!("Successfully added version {} to issue {}", version_id, issue_id)
+            }).to_string()
+        )]))
+    }
 }
 
 #[tool(tool_box)]
@@ -89,4 +109,4 @@ impl ServerHandler for Service {
             instructions: Some("This server provides tools to interact with GitHub Actions runners and Jira issues.".to_string()),
         }
     }
-} 
+}

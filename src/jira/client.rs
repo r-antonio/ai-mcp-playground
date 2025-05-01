@@ -169,4 +169,60 @@ impl JiraClient {
 
         Ok(())
     }
-} 
+
+    pub async fn add_version_to_issue(&self, issue_id: &str, version_id: &str) -> Result<()> {
+        let url = format!(
+            "{}/rest/api/2/issue/{}",
+            self.base_url.trim_end_matches('/'),
+            issue_id
+        );
+
+        #[derive(Debug, Serialize)]
+        struct VersionUpdate {
+            update: VersionUpdateFields,
+        }
+
+        #[derive(Debug, Serialize)]
+        struct VersionUpdateFields {
+            fixVersions: Vec<VersionAction>,
+        }
+
+        #[derive(Debug, Serialize)]
+        struct VersionAction {
+            add: VersionReference,
+        }
+
+        #[derive(Debug, Serialize)]
+        struct VersionReference {
+            id: String,
+        }
+
+        let update_request = VersionUpdate {
+            update: VersionUpdateFields {
+                fixVersions: vec![
+                    VersionAction {
+                        add: VersionReference {
+                            id: version_id.to_string(),
+                        },
+                    },
+                ],
+            },
+        };
+        
+        let response = self.client
+            .put(&url)
+            .json(&update_request)
+            .send()
+            .await?;
+
+        let status = response.status();
+        debug!("Jira API add version response status: {}", status);
+
+        if !status.is_success() {
+            let error_body = response.text().await?;
+            anyhow::bail!("Jira API error: {} - {}", status, error_body);
+        }
+
+        Ok(())
+    }
+}

@@ -1,6 +1,6 @@
 # AI-MCP Playground
 
-This is an experimental project that demonstrates the capabilities of AI-assisted development using Cursor IDE. The entire codebase was developed through a collaborative process between a human developer and an AI assistant, with minimal direct human interaction with the code.
+This is an experimental project that demonstrates the capabilities of AI-assisted development using Cursor IDE and Cline. The entire codebase was developed through a collaborative process between a human developer and AI assistants, with minimal direct human interaction with the code.
 
 ## Project Overview
 
@@ -12,7 +12,7 @@ The project serves as a proof of concept for AI-assisted development workflows a
 
 ## Development Process
 
-This project was developed using an iterative, conversational approach with an AI assistant in Cursor IDE. The development process included:
+This project was developed using an iterative, conversational approach with AI assistants in Cursor IDE and Cline. The development process included:
 - Initial project setup and structure
 - Implementation of GitHub integration
 - Addition of Jira functionality
@@ -83,6 +83,7 @@ This project serves as an experiment in AI-assisted development, exploring:
 - The effectiveness of conversational programming
 - Best practices for AI-human collaboration in software development
 - The potential of AI in modern development workflows
+- Comparing different AI coding assistants (Cursor and Cline)
 
 ## Disclaimer
 
@@ -90,4 +91,4 @@ This is an experimental project created for testing and learning purposes. It de
 
 ## License
 
-This project is open source and available under the MIT License. 
+This project is open source and available under the MIT License.
